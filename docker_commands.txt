@@ -1,0 +1,17 @@
+## list running container
+docker ps
+
+## up in background with rebuilding image
+docker compose up -d --build  
+
+## docker compose up a certain service only
+docker compsoe up <service> -d --build
+
+## down all (with remove container)
+docker compose down
+
+## see logs of a container
+docker logs <container>
+
+## ssh into a contianer
+docker exec -it <container> bash
