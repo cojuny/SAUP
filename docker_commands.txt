@@ -15,3 +15,6 @@ docker logs <container>
 
 ## ssh into a contianer
 docker exec -it <container> bash
+
+## ssh into db
+docker exec -it saup-db-1 mysql -u root -psaup123

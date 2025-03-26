@@ -5,6 +5,7 @@ services:
     build: ./SAUP-example-a-svc
     depends_on:
       - kafka
+      - db
     env_file:
       - ./SAUP-example-a-svc/.env
     ports:
@@ -16,10 +17,28 @@ services:
     build: ./SAUP-example-b-svc
     depends_on:
       - kafka
+      - db
     env_file:
       - ./SAUP-example-b-svc/.env
     ports:
       - "5002:5000"
+    networks:
+      - saup-network
+
+  db:
+    image: mysql
+    restart: always
+    ports:
+      - "3306:3306"  
+    environment:
+      MYSQL_ROOT_PASSWORD: saup123
+    volumes:
+      - ./volumes/mysql:/var/lib/mysql  
+    healthcheck:
+          test: ["CMD", "mysqladmin", "ping", "-h", "127.0.0.1", "-p$saup123"]
+          interval: 5s
+          timeout: 3s
+          retries: 10
     networks:
       - saup-network
 
